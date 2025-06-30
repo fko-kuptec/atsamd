@@ -113,6 +113,7 @@ where
             *r = self.transfer_word_in_place(*w)?;
         }
 
+        self.flush_tx();
         Ok(())
     }
 
@@ -148,6 +149,7 @@ where
         for word in words.iter_mut() {
             *word = self.transfer_word_in_place(self.config.nop_word.as_())?;
         }
+        self.flush_tx();
         Ok(())
     }
 
@@ -162,6 +164,7 @@ where
                 self.write_data(word.as_());
             }
         }
+        self.flush_tx();
 
         // Reenable receiver only if necessary
         if D::RX_ENABLE {
@@ -203,6 +206,7 @@ where
             *word = read;
         }
 
+        self.flush_tx();
         Ok(())
     }
 
