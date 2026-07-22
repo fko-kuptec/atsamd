@@ -163,6 +163,11 @@ where
             }
         }
 
+        // This explicit flush seems to be necessary, because the following
+        // re-enabling of the receiver seems to break stuff, otherwise. See the
+        // issue #914 in the GitHub repo for more informations
+        self.flush_tx();
+
         // Reenable receiver only if necessary
         if D::RX_ENABLE {
             self.config.as_mut().regs.rx_enable();
